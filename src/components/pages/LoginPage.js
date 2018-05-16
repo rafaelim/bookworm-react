@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import LoginForm from '../forms/LoginForm.js';
+import ProtoTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { login } from '../../actions/auth';
 
 class LoginPage extends Component {
-    submit = (data) => {
-        console.log(data);
-    }
+    submit = (data) => this.props.login(data)
+        .then(() => this.props.history('/'));
 
     render() {
         return (
@@ -15,4 +17,11 @@ class LoginPage extends Component {
         );
     }
 }
-export default LoginPage;
+
+LoginPage.protoTypes = {
+    history: ProtoTypes.shape({
+        push: ProtoTypes.func.isRequired
+    }).isRequired,
+    login: ProtoTypes.func.isRequired
+}
+export default connect(null, { login })(LoginPage);
