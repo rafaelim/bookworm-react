@@ -1,0 +1,21 @@
+import React from 'react'
+import ProtoTypes from 'prop-types';
+import { Route, Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
+
+export const UserRoute = ({ isAuthenticated, component: Component, ...rest }) => (
+    <Route {...rest} render={props => 
+        isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
+    } />
+);
+
+UserRoute.protoTypes = {
+    component: ProtoTypes.func.isRequired,
+    isAuthenticated: ProtoTypes.bool.isRequired
+}
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isAuthenticated: !!state.user.token
+    }
+}
+export default connect(mapStateToProps)(UserRoute);
