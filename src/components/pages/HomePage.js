@@ -12,6 +12,7 @@ const HomePage = ({ isAuthenticated, logout }) => (
             ) : (
                 <div>
                     <Link to="login">Login</Link>
+                    or
                     <Link to="signup">Sign Up</Link>
                 </div>
             )
